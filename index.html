@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5 Años Contigo, Ángelita💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ========== PANTALLA DE INICIO ========== -->
+  <div id="screen-intro" class="screen active">
+    <div class="petals-container" id="petals"></div>
+    <div class="intro-content">
+      <p class="intro-subtitle fade-in-up delay-1">Para mi</p>
+      <h1 class="intro-title fade-in-up delay-2">Ángela Poto Peo</h1>
+      <div class="intro-hearts fade-in-up delay-3">💕</div>
+      <p class="intro-years fade-in-up delay-3">Cinco años de amor y riquitos</p>
+      <p class="intro-desc fade-in-up delay-4">
+        Preparé algo especial para ti mi Peo Peo.<br/>
+        Juega cada capítulo y descubre mis mensajes.
+      </p>
+      <button class="btn-main fade-in-up delay-5" onclick="startJourney()">
+        Comenzar el viaje 🌹
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== HUB PRINCIPAL ========== -->
+  <div id="screen-hub" class="screen">
+    <div class="hub-bg"></div>
+    <div class="hub-content">
+      <h2 class="hub-title">Nuestros 5 años</h2>
+      <p class="hub-subtitle">Completa cada capítulo para leer mis cartas</p>
+      <div class="chapters-grid">
+
+        <div class="chapter-card" id="chapter-1" tabindex="0" role="button"
+             onclick="openChapter(1)" onkeydown="if(event.key==='Enter')openChapter(1)">
+          <div class="chapter-icon">🌸</div>
+          <div class="chapter-number">I</div>
+          <h3>El primer encuentro</h3>
+          <p>Memory de corazones</p>
+          <div class="chapter-status" id="status-1">▶ Jugar</div>
+        </div>
+
+        <div class="chapter-card locked" id="chapter-2" tabindex="0" role="button"
+             onclick="openChapter(2)" onkeydown="if(event.key==='Enter')openChapter(2)">
+          <div class="chapter-icon">🔒</div>
+          <div class="chapter-number">II</div>
+          <h3>Lo que me robaste</h3>
+          <p>Puzzle deslizante</p>
+          <div class="chapter-status" id="status-2">🔒 Bloqueado</div>
+        </div>
+
+        <div class="chapter-card locked" id="chapter-3" tabindex="0" role="button"
+             onclick="openChapter(3)" onkeydown="if(event.key==='Enter')openChapter(3)">
+          <div class="chapter-icon">🔒</div>
+          <div class="chapter-number">III</div>
+          <h3>Nuestro mejor viaje</h3>
+          <p>Adivina el destino</p>
+          <div class="chapter-status" id="status-3">🔒 Bloqueado</div>
+        </div>
+
+        <div class="chapter-card locked" id="chapter-4" tabindex="0" role="button"
+             onclick="openChapter(4)" onkeydown="if(event.key==='Enter')openChapter(4)">
+          <div class="chapter-icon">🔒</div>
+          <div class="chapter-number">IV</div>
+          <h3>Nuestro futuro</h3>
+          <p>La palabra secreta</p>
+          <div class="chapter-status" id="status-4">🔒 Bloqueado</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MINIJUEGO 1: MEMORY ========== -->
+  <div id="screen-game1" class="screen">
+    <div class="game-header">
+      <button class="btn-back" onclick="goHub()">← Volver</button>
+      <div class="game-header-text">
+        <h2>Capítulo I &middot; Memory de corazones</h2>
+      </div>
+    </div>
+    <div class="game-instructions">
+      <span class="instr-icon">💡</span>
+      <p>Encuentra los <strong>8 pares</strong> de cartas. Usa el <strong>mouse</strong> o las <strong>flechas del teclado</strong> para moverte y <strong>Enter / Espacio</strong> para voltear.</p>
+    </div>
+    <div id="memory-board" class="memory-board" role="grid" aria-label="Tablero de memory"></div>
+    <div class="game-info">
+      <span class="info-badge">Movimientos: <strong id="move-count">0</strong></span>
+      <span class="info-badge">Parejas: <strong id="pairs-found">0</strong> / 8</span>
+    </div>
+    <div class="puzzle-btn-row">
+      <button class="btn-secondary" onclick="resetMemory()">↺ Reiniciar</button>
+      <button class="btn-solve" onclick="solveMemory()">🏳️ Resolver</button>
+    </div>
+  </div>
+
+  <!-- ========== MINIJUEGO 2: PUZZLE DESLIZANTE ========== -->
+  <div id="screen-game2" class="screen">
+    <div class="game-header">
+      <button class="btn-back" onclick="goHub()">← Volver</button>
+      <div class="game-header-text">
+        <h2>Capítulo II &middot; Puzzle de amor</h2>
+      </div>
+    </div>
+    <div class="game-instructions">
+      <span class="instr-icon">💡</span>
+      <p>Desliza las piezas hasta ordenar la imagen. Haz <strong>clic</strong> en una pieza adyacente al espacio vacío para moverla. Con <strong>teclado</strong>: flechas para mover el hueco.</p>
+    </div>
+    <div class="puzzle-wrapper">
+      <div class="puzzle-container">
+        <div id="puzzle-board" class="puzzle-board" role="grid" aria-label="Puzzle deslizante"></div>
+      </div>
+      <div class="puzzle-preview">
+        <p class="preview-label">Vista previa</p>
+        <!-- ✏️ FOTO DEL PUZZLE: photos/photo2.jpg -->
+        <img src="photos/photo2.jpg" alt="preview" id="puzzle-preview-img" />
+      </div>
+    </div>
+    <div class="game-info">
+      <span class="info-badge">Movimientos: <strong id="puzzle-moves">0</strong></span>
+    </div>
+    <div class="puzzle-btn-row">
+      <button class="btn-secondary" onclick="resetPuzzle()">↺ Reiniciar</button>
+      <button class="btn-solve" id="btn-solve" onclick="solvePuzzle()">🏳️ Resolver</button>
+    </div>
+  </div>
+
+  <!-- ========== MINIJUEGO 3: NUESTRO MEJOR VIAJE ========== -->
+  <div id="screen-game3" class="screen">
+    <div class="game-header">
+      <button class="btn-back" onclick="goHub()">← Volver</button>
+      <div class="game-header-text">
+        <h2>Capítulo III &middot; Nuestro mejor viaje</h2>
+      </div>
+    </div>
+    <div class="game-instructions">
+      <span class="instr-icon">💡</span>
+      <p>Lee las pistas una a una y adivina el destino de nuestro viaje favorito. Escribe tu respuesta y presiona <strong>Enter</strong> o el botón. Cuantas menos pistas uses, ¡mejor!</p>
+    </div>
+    <div class="travel-game" id="travel-game">
+      <div class="travel-clues-area">
+        <div class="travel-clue-counter">
+          Pista <span id="travel-clue-num">1</span> de <span id="travel-clue-total">5</span>
+        </div>
+        <div id="travel-clue-card" class="travel-clue-card">
+          <div class="travel-clue-icon" id="travel-clue-icon">🗺️</div>
+          <p id="travel-clue-text" class="travel-clue-text">Cargando pista…</p>
+        </div>
+        <button class="btn-secondary travel-next-btn" id="travel-next-btn" onclick="showNextClue()">
+          Ver siguiente pista →
+        </button>
+      </div>
+      <div class="travel-answer-area">
+        <div class="travel-attempts" id="travel-attempts"></div>
+        <div class="travel-stars">
+          <span id="travel-star-1" class="travel-star dim">★</span>
+          <span id="travel-star-2" class="travel-star dim">★</span>
+          <span id="travel-star-3" class="travel-star dim">★</span>
+        </div>
+        <div class="travel-input-row">
+          <input type="text" id="travel-input" class="travel-input"
+                 placeholder="Escribe el destino…"
+                 maxlength="40"
+                 onkeydown="if(event.key==='Enter') submitTravelGuess()"
+                 aria-label="Tu respuesta" />
+          <button class="btn-main travel-submit-btn" onclick="submitTravelGuess()">✓</button>
+        </div>
+        <p id="travel-feedback" class="travel-feedback" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="puzzle-btn-row">
+      <button class="btn-solve" onclick="solveTravel()">🏳️ Resolver</button>
+    </div>
+  </div>
+
+  <!-- ========== MINIJUEGO 4: WORDLE ========== -->
+  <div id="screen-game4" class="screen">
+    <div class="game-header">
+      <button class="btn-back" onclick="goHub()">← Volver</button>
+      <div class="game-header-text">
+        <h2>Capítulo IV &middot; La palabra que nos define</h2>
+      </div>
+    </div>
+    <div class="game-instructions">
+      <span class="instr-icon">💡</span>
+      <p>Adivina la palabra de <strong>6 letras</strong> que nos describe. Tienes <strong>6 intentos</strong>. 
+      🟩 Letra y posición correctas &nbsp;·&nbsp; 🟨 Letra correcta, posición incorrecta &nbsp;·&nbsp; ⬜ No está en la palabra.</p>
+    </div>
+    <div id="wordle-grid" class="wordle-grid" aria-label="Cuadrícula del juego"></div>
+    <div id="wordle-keyboard" class="wordle-keyboard" role="group" aria-label="Teclado virtual"></div>
+    <div id="wordle-message" class="wordle-message" aria-live="polite"></div>
+    <div class="puzzle-btn-row">
+      <button class="btn-secondary" onclick="resetWordle()">↺ Reiniciar</button>
+      <button class="btn-solve" onclick="solveWordle()">🏳️ Resolver</button>
+    </div>
+  </div>
+
+  <!-- ========== RECOMPENSA 1 ========== -->
+  <div id="screen-reward1" class="screen reward-screen">
+    <div class="reward-layout-1">
+      <div class="reward-photo-col">
+        <div class="photo-frame polaroid">
+          <!-- ✏️ FOTO 1: sube tu foto como photos/photo1.jpg -->
+          <img src="photos/photo1.jpg" alt="Nosotros" class="reward-photo" />
+          <p class="polaroid-caption">Nuestro primer encuentro 🤍</p>
+        </div>
+        <div class="floating-hearts" aria-hidden="true">
+          <span>💕</span><span>🌸</span><span>💕</span>
+        </div>
+      </div>
+      <div class="reward-text-col">
+        <span class="reward-chapter-label">Capítulo I · Desbloqueado</span>
+        <h2 class="reward-title">El primer encuentro</h2>
+        <div class="reward-divider">❦</div>
+        <!-- ✏️ MENSAJE 1: escribe aquí tu primer mensaje para Ángela -->
+        <p class="reward-message">
+          Ángela, todavía recuerdo el día que te vi por primera vez.
+          (tu sabes por que no agrego la primera foto que tenemos juntos je)
+          Aunque estaba cojo igual me fuiste a ver, con verguenza y todo.
+          ojalá pudiera grabarme cada detalle tuyo porque se me olvidan las cosas
+          Pero tu sonrisa y risa y ese destello de tus ojos cuando nos mirabamos al inicio
+          Supe desde entonces que algo muy especial, que ni yo me creia xdd
+          Algo loco estaba por comenzar. Cinco años después, te sigo eligiendo
+          cada mañana sin dudarlo, Amorcito preciosa.
+        </p>
+        <!-- ✏️ FIN MENSAJE 1 -->
+        <button class="btn-main btn-reward" onclick="goHub()">Siguiente capítulo →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== RECOMPENSA 2 ========== -->
+  <div id="screen-reward2" class="screen reward-screen">
+    <div class="reward-layout-2">
+      <div class="reward2-top">
+        <span class="reward-chapter-label">Capítulo II · Desbloqueado</span>
+        <h2 class="reward-title">Lo que me robaste</h2>
+        <div class="reward-divider">❦</div>
+        <!-- ✏️ MENSAJE 2: escribe aquí tu segundo mensaje para Ángela -->
+        <p class="reward-message reward-message-center">
+          Me robaste la ropa jajaja pero también el corazón mi Peo Peo. 
+          Ya no puedo imaginar una vida sin ti, ni una película sin que me agarres la mano.
+          Me robaste el corazón completo y lo mejor es que no quiero
+          que me lo devuelvas nunca. Gracias por quedarte a mi lado.
+        </p>
+        <!-- ✏️ FIN MENSAJE 2 -->
+      </div>
+      <div class="reward2-mosaic">
+        <!-- ✏️ FOTOS MOSAICO: photos/photo2a.jpg  photos/photo2b.jpg  photos/photo2c.jpg -->
+        <div class="mosaic-item mosaic-tall">
+          <img src="photos/photo2a.jpg" alt="Nosotros" />
+        </div>
+        <div class="mosaic-col">
+          <div class="mosaic-item">
+            <img src="photos/photo2b.jpg" alt="Nosotros" />
+          </div>
+          <div class="mosaic-item">
+            <img src="photos/photo2c.jpg" alt="Nosotros" />
+          </div>
+        </div>
+      </div>
+      <button class="btn-main btn-reward" onclick="goHub()">Siguiente capítulo →</button>
+    </div>
+  </div>
+
+  <!-- ========== RECOMPENSA 3: NUESTRO MEJOR VIAJE ========== -->
+  <div id="screen-reward3" class="screen reward-screen">
+    <div class="reward-layout-travel">
+      <div class="travel-reward-bg" id="travel-reward-bg"></div>
+      <div class="travel-reward-content">
+        <span class="reward-chapter-label">Capítulo III · Desbloqueado</span>
+        <h2 class="reward-title reward-title-travel">Nuestro mejor viaje</h2>
+        <div class="reward-divider">❦</div>
+        <!-- ✏️ FOTO DEL VIAJE: photos/photo_travel.jpg -->
+        <div class="travel-reward-photo-wrap">
+          <div class="travel-reward-photo-frame">
+            <img src="photos/photo_travel.jpg" alt="Nuestro viaje" />
+          </div>
+          <div class="travel-reward-stamps">
+            <span class="stamp">✈️</span>
+            <span class="stamp stamp-2">📍</span>
+          </div>
+        </div>
+        <!-- ✏️ MENSAJE 3: escribe aquí tu mensaje sobre el viaje -->
+        <p class="reward-message reward-message-travel">
+          ¿Recuerdas cada detalle de ese viaje? Yo sí. Recuerdo tu cara
+          al llegar (pura culpa y rebeldía), las cosas que dijiste, cómo te reíste.
+          Contigo hasta perderse es una aventura que quiero repetir siempre mi Amorcito.
+          Como cuando nos perdimos en el jardín y no podíamos salir y habia otro en las mismas jajaja.
+          El hotel y la vida se sentian como algo invaluable, solo porque estabas tu.
+          Y el show del tio Avello muy weeeno ajajaj.
+        </p>
+        <!-- ✏️ FIN MENSAJE 3 -->
+        <button class="btn-main btn-reward" onclick="goHub()">Siguiente capítulo →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== RECOMPENSA 4: FINAL ========== -->
+  <div id="screen-reward4" class="screen reward-screen reward-final">
+    <div class="fireworks" id="fireworks" aria-hidden="true"></div>
+    <div class="reward-layout-3">
+      <div class="reward3-header">
+        <span class="reward-chapter-label">Capítulo IV · Final</span>
+        <h2 class="reward-title-big">Nuestro futuro, Ángela</h2>
+        <p class="reward3-years">✦ 5 años ✦</p>
+      </div>
+
+      <div class="reward3-body">
+        <div class="reward3-photos">
+          <!-- ✏️ FOTOS FINALES: photos/photo3a.jpg  photos/photo3b.jpg  photos/photo3c.jpg -->
+          <div class="photo-frame round-frame">
+            <img src="photos/photo3a.jpg" alt="Nosotros" />
+          </div>
+          <div class="photo-frame round-frame round-frame-sm">
+            <img src="photos/photo3b.jpg" alt="Nosotros" />
+          </div>
+          <div class="photo-frame round-frame round-frame-sm">
+            <img src="photos/photo3c.jpg" alt="Nosotros" />
+          </div>
+        </div>
+
+        <div class="reward3-text">
+          <!-- ✏️ MENSAJE FINAL: escribe tu carta final aquí (puedes añadir más párrafos) -->
+          <p class="reward-message reward-message-final">
+            Cinco años, Amorcito. Cinco años de aventuras, de risas
+            hasta que nos duele la wata de aguantarnos porque es muy noche, 
+            de peleas pequeñas o grandes que siempre terminan en abrazos. 
+            Cinco años de crecer juntos y descubrir que la vida es mucho más bonita a tu lado.
+          </p>
+          <p class="reward-message reward-message-final">
+            Hoy quiero prometerte que los próximos cinco van a ser aún
+            mejores, porque contigo cada día es una razón para sonreír.
+            Eres mi lugar feliz cuando toy triste o incluso cuando estoy feliz jajaja
+            el mundo entero Peo Peo no sería lo mismo sin ti y nuestro anselmo, 
+            Me hiciste muy feliz hasta hoy, Mami anselma preciosa.
+          </p>
+          <p class="reward-message reward-message-final">
+            Te amo con todo lo que puedo, aunque a veces digas que parece poco, te juro que es todo.
+          </p>
+          <!-- ✏️ FIN MENSAJE FINAL -->
+          <div class="final-signature">— Tu Peo Peo 💕</div>
+        </div>
+      </div>
+
+      <button class="btn-main btn-restart" onclick="restartAll()">Volver al inicio 🌹</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+  <!-- Modal "¿te rendiste?" - global, fuera de todas las pantallas -->
+  <div id="solve-modal" class="solve-modal" role="dialog" aria-modal="true" aria-labelledby="solve-modal-msg">
+    <div class="solve-modal-box">
+      <p id="solve-modal-msg" class="solve-modal-msg"></p>
+      <div class="solve-modal-btns">
+        <button class="btn-main" onclick="confirmSolve()">Sí, desbloquea 😬</button>
+        <button class="btn-secondary" onclick="closeSolveModal()">No, yo puedo 💪</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
